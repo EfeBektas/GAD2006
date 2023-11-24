@@ -20,13 +20,23 @@ ATileGameManager::ATileGameManager() :
 	GridSelection = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("GridMesh"));
 	GridSelection->SetupAttachment(RootComponent);
 
+	GridSelectionDisplay = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("GridMeshDisplay"));
+	GridSelectionDisplay->SetupAttachment(RootComponent);
+
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> PlaneMesh(TEXT("StaticMesh'/Engine/BasicShapes/Plane.Plane'"));
 
 	static ConstructorHelpers::FObjectFinder<UMaterialInterface> GridMaterial(TEXT("Material'/Game/UI/MAT_GridSlot.MAT_GridSlot'"));
 
+	static ConstructorHelpers::FObjectFinder<UMaterialInterface> GridDisplayMaterial(TEXT("Material'/Game/Materials/M_Atlas.M_Atlas'"));
+
+
 	GridSelection->SetStaticMesh(PlaneMesh.Object);
 	GridSelection->SetMaterial(0, GridMaterial.Object);
 	GridSelection->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+
+	GridSelectionDisplay->SetStaticMesh(TileTypes[CurrentTileIndex]->InstancedMesh->GetStaticMesh());
+	GridSelectionDisplay->SetMaterial(0, GridDisplayMaterial.Object);
+	GridSelectionDisplay->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
 }
 
@@ -39,7 +49,7 @@ void ATileGameManager::BeginPlay()
 	{
 		PlayerController->GameManager = this;
 	}
-	GridSelection->SetStaticMesh(TileTypes[CurrentTileIndex]->InstancedMesh->GetStaticMesh());
+	//GridSelectionDisplay->SetStaticMesh(TileTypes[CurrentTileIndex]->InstancedMesh->GetStaticMesh());
 
 	
 }
@@ -96,7 +106,7 @@ void ATileGameManager::OnActorInteraction(AActor* HitActor, FVector& Location, b
 		CurrentTileIndex = (CurrentTileIndex + 1) % TileTypes.Num();
 		UE_LOG(LogTemp, Warning, TEXT("TileType: %s"), *TileTypes[CurrentTileIndex]->GetActorLabel());
 
-		GridSelection->SetStaticMesh(TileTypes[CurrentTileIndex]->InstancedMesh->GetStaticMesh());
+		GridSelectionDisplay->SetStaticMesh(TileTypes[CurrentTileIndex]->InstancedMesh->GetStaticMesh());
 	}
 	else if (Input->WasJustPressed(EKeys::MouseScrollUp))
 	{
@@ -106,11 +116,12 @@ void ATileGameManager::OnActorInteraction(AActor* HitActor, FVector& Location, b
 
 		UE_LOG(LogTemp, Warning, TEXT("TileType: %s"), *TileTypes[CurrentTileIndex]->GetActorLabel());
 
-		GridSelection->SetStaticMesh(TileTypes[CurrentTileIndex]->InstancedMesh->GetStaticMesh());
+		GridSelectionDisplay->SetStaticMesh(TileTypes[CurrentTileIndex]->InstancedMesh->GetStaticMesh());
 	}
 	else
 	{
 		GridSelection->SetWorldLocation(GridLoc + GridOffset);
+		GridSelectionDisplay->SetWorldLocation(GridLoc + GridOffset);
 	}
 
 	if (Input->WasJustPressed(EKeys::RightMouseButton))
