@@ -34,7 +34,7 @@ ATileGameManager::ATileGameManager() :
 	GridSelection->SetMaterial(0, GridMaterial.Object);
 	GridSelection->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
-	GridSelectionDisplay->SetStaticMesh(TileTypes[CurrentTileIndex]->InstancedMesh->GetStaticMesh());
+	//GridSelectionDisplay->SetStaticMesh(TileTypes[CurrentTileIndex]->InstancedMesh->GetStaticMesh());
 	GridSelectionDisplay->SetMaterial(0, GridDisplayMaterial.Object);
 	GridSelectionDisplay->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
@@ -49,7 +49,7 @@ void ATileGameManager::BeginPlay()
 	{
 		PlayerController->GameManager = this;
 	}
-	//GridSelectionDisplay->SetStaticMesh(TileTypes[CurrentTileIndex]->InstancedMesh->GetStaticMesh());
+	GridSelectionDisplay->SetStaticMesh(TileTypes[CurrentTileIndex]->InstancedMesh->GetStaticMesh());
 
 	
 }
