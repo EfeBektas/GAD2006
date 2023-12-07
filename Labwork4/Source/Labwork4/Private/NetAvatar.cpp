@@ -34,7 +34,7 @@ void ANetAvatar::BeginPlay()
 	Super::BeginPlay();
 	GetCharacterMovement()->MaxWalkSpeed = Speed;
 
-	// Hocam exeption access violation readin location erroru veriyor
+	// Hocam exeption access violation reading location erroru veriyor blueprintten yaptým
 	
 	//Camera->bUsePawnControlRotation = false;
 	//SpringArm->bUsePawnControlRotation = true;

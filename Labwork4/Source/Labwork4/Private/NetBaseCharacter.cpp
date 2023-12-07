@@ -80,7 +80,7 @@ void ANetBaseCharacter::OnConstruction(const FTransform& Transform)
 void ANetBaseCharacter::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-    DOREPLIFETIME(ANetBaseCharacter, PartSelection);
+	DOREPLIFETIME(ANetBaseCharacter, PartSelection);
 }
 
 // Called every frame
@@ -120,7 +120,6 @@ void ANetBaseCharacter::ChangeBodyPart(EBodyPart index, int value, bool DirectSe
 	case EBodyPart::BP_Hair:PartHair->SetStaticMesh(List->ListStatic[CurrentIndex]);
 		break;
 	case EBodyPart::BP_Chest:GetMesh()->SetSkeletalMeshAsset(List->ListSkeletal[CurrentIndex]);
-		GEngine->AddOnScreenDebugMessage(-1, 1, FColor::Blue, TEXT("CHEST"));
 		break;
 	case EBodyPart::BP_Hands:PartHands->SetSkeletalMeshAsset(List->ListSkeletal[CurrentIndex]);
 		break;
